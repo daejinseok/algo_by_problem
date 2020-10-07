@@ -5,5 +5,5 @@
 
 
 ```ps1
-git config --global alias.save '!f() { git add -A && git commit -m "auto" && git push; }; f'
+git config --global alias.save '!f() { git add -A && git commit -m "auto_office" && git push; }; f'
 ```

@@ -1,31 +1,40 @@
 const log = console.log
 const assert = require('assert')
 
+const equalArray = (a, b) => a.every( (val, idx) => val === b[idx] )
+const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b)
+const equalSet = (a, b) => {
 
+    let a2, b2
 
+    if (a.length !== undefined){
+        a2 = a.sort();
+        b2 = b.sort();
+    } else {
+        a2 = a;
+        b2 = b;
+    }    
 
-
-
-//equalsSet
-
-exports.log = console.log
-exports.assert = require('assert')
-
-exports.equalArray = (a, b) => a.every( (val, idx) => val === b[idx] )
-exports.equalSet = (a, b) => {
-
-    const a_sort = a.sort()
-    const b_sort = b.sort()
-
-    return exports.equalArray(a_sort, b_sort)
-
+    return equal(a2, b2)
 }
 
+const notEqual = (a, b) => !equal(a, b)
+const notEqualSet = (a, b) => !equalSet(a, b)
 
-const a = [[3,2,2], [3,2,1], [3,2,1], [3,1,1], [1,2], [2,3]]
-
-
-
+const assertEqual = (a, b) => assert(equal(a, b))
+const assertEqualSet = (a, b) => assert(equalSet(a, b))
+const assertNotEqual = (a, b) => assert(notEqual(a, b))
+const assertNotEqualSet = (a, b) => assert(notEqualSet(a, b))
 
 exports.log = log
-exports.assert = assert
+//exports.assert = assert
+exports.equalArray = equalArray
+exports.equal = equal
+exports.equalSet = equalSet
+exports.notEqual = notEqual
+exports.notEqualSet = notEqualSet
+exports.assert = assertEqual
+exports.assertSet = assertEqualSet
+exports.assertNot = assertNotEqual
+exports.assertSetNot = assertNotEqualSet
+
