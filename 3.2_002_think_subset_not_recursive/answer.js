@@ -1,35 +1,37 @@
+/* page 126 생각해보기 level 2
+
+0이상 2^n - 1 이하의 수는 각각 원소가 n개인 집합에서 부분집합을 만드는 방법
+하나와 대응된다. 이를 이용해서 모든 부분집합을 출력하는 프로그램을 비재귀적으로
+작성하라.
+
+*/
+
 const h = require('../h.js')
-
-// function _subset(set, size, n, idx, output){
-// 	if( n === idx){
-// 		output.push(set.slice(0, size))
-// 		return
-// 	}
-
-// 	set[size] = idx
-// 	_subset(set, size+1, n, idx+1, output)
-// 	_subset(set, size, n, idx+1, output)
-// }
-
 
 function subset(n){
 
-	function _subset(set, n, idx, output){
-		if( n === idx){
-			output.push(set)
-			return
-		}
-	
-		_subset(set,           n, idx+1, output)
-		_subset([...set, idx], n, idx+1, output)
-	}	
+	let set = [[]]
 
-	const output = []
+	for(let i = 0; i < n; i++){
+		set = dup(set, i)
+	}
 
-	_subset([], n, 0, output)
+	return set
 
-	return output
 }
+
+function dup(set, idx){
+
+	const rst = []
+
+	for(let i = 0, end = set.length; i < end; i++){
+		rst.push([...set[i], idx])		
+		rst.push(set[i])
+	}
+
+	return rst
+}
+
 
 
 h.assertSet( subset(1), [[],[0]] )
